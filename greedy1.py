@@ -1,6 +1,7 @@
 from prepared_data import read_write_to_csv, get_queries_names
 import random
 
+# Cardinalities from https://github.com/andreaskipf/learnedcardinalities/blob/master/data/column_min_max_vals.csv
 column_cardinalities = {
         't.id': 2528312,
         't.kind_id': 2528312,
@@ -54,9 +55,10 @@ def greedy1_cardinalities():
     greedy1_cardinalities = {}
     random.seed(1)
 
-    # Filter down predicates first
+    # If there is a predicate for a table, the predicate is applied on the table first
     seen_tables = {}
     predicate_idx = 0
+
     for predicate in read_write_to_csv('scale')[2]:
         predicate_idx += 1
         
@@ -64,8 +66,10 @@ def greedy1_cardinalities():
             for i in range(0, len(predicate), 3):
                 # If predicate is one of the relations where each entry is different
                 if predicate[i] in ['t.id', 'mc.id', 'ci.id', 'mi.id', 'mi_idx.id', 'mk.id']:
+                    # Then if operator is =, output table will only have 1 entry
                     if predicate[i+1] == '=':
                         table_cardinality = 1
+                    # Then if operator is < or >
                     else:
                         table_cardinality = column_cardinalities[predicate[i]] - int(predicate[2]) - 1
                 else:
@@ -73,14 +77,13 @@ def greedy1_cardinalities():
                 
                 # For each predicate, we keep the cardinality of filtering that table
                 table = predicate[i].split('.')[0]
+
                 if predicate_idx not in seen_tables:
                     seen_tables[predicate_idx] = {table:[table_cardinality]}
                 elif table not in seen_tables[predicate_idx]:
                     seen_tables[predicate_idx][table] = [table_cardinality]
                 elif table in seen_tables[predicate_idx]:
                     seen_tables[predicate_idx][table].append(table_cardinality)
-
-    
     
     join_idx = 0
     for joins in read_write_to_csv('scale')[1]:
@@ -171,13 +174,12 @@ def greedy1():
     join_orderings = {}
 
     for query in cardinalities:
-        relations_of_interest = {}
+        relations_of_interest = cardinalities[query].copy()
         join_order = []
-        for relation in cardinalities[query]:
-            relations_of_interest[relation] = cardinalities[query][relation]
-        
+                
         #print("QUERY", query)
         #print(query_names[query])
+        #print()
         #print("RELATIONS OF INTEREST ARE:", relations_of_interest)
         
         while len(relations_of_interest) != 0:
@@ -187,10 +189,10 @@ def greedy1():
             # print("REMOVED", least_costly_relation, " --- CURRENT JOIN ORDER:", join_order)
 
         join_orderings[query] = join_order
-        #print("FINAL JOIN ORDER", join_orderings[query])
+        #print(join_orderings[query])
         #print("-------------------------------------------")
 
     return join_orderings
             
 if __name__ == "__main__":
-    print(greedy1_cardinalities())
+    (greedy1())
