@@ -1,0 +1,79 @@
+title t,movie_companies mc#t.id=mc.movie_id##1
+title t,movie_info_idx mi_idx#t.id=mi_idx.movie_id##2
+title t,movie_keyword mk#t.id=mk.movie_id##3
+title t,movie_info mi#t.id=mi.movie_id##4
+title t,cast_info ci#t.id=ci.movie_id##5
+title t,movie_info mi,movie_info_idx mi_idx#t.id=mi.movie_id,t.id=mi_idx.movie_id##6
+title t,movie_info mi,movie_companies mc#t.id=mi.movie_id,t.id=mc.movie_id##7
+title t,movie_info_idx mi_idx,movie_info mi#t.id=mi_idx.movie_id,t.id=mi.movie_id##8
+title t,movie_info_idx mi_idx,movie_companies mc#t.id=mi_idx.movie_id,t.id=mc.movie_id##9
+title t,movie_companies mc,movie_info mi#t.id=mc.movie_id,t.id=mi.movie_id##10
+title t,movie_companies mc,movie_info_idx mi_idx#t.id=mc.movie_id,t.id=mi_idx.movie_id##11
+title t,movie_info mi,movie_keyword mk#t.id=mi.movie_id,t.id=mk.movie_id##12
+title t,movie_keyword mk,movie_info mi#t.id=mk.movie_id,t.id=mi.movie_id##13
+title t,movie_keyword mk,movie_info_idx mi_idx#t.id=mk.movie_id,t.id=mi_idx.movie_id##14
+title t,movie_info_idx mi_idx,movie_keyword mk#t.id=mi_idx.movie_id,t.id=mk.movie_id##15
+title t,movie_keyword mk,movie_companies mc#t.id=mk.movie_id,t.id=mc.movie_id##16
+title t,movie_companies mc,movie_keyword mk#t.id=mc.movie_id,t.id=mk.movie_id##17
+title t,cast_info ci,movie_keyword mk#t.id=ci.movie_id,t.id=mk.movie_id##18
+title t,cast_info ci,movie_companies mc#t.id=ci.movie_id,t.id=mc.movie_id##19
+title t,movie_keyword mk,cast_info ci#t.id=mk.movie_id,t.id=ci.movie_id##20
+title t,movie_companies mc,cast_info ci#t.id=mc.movie_id,t.id=ci.movie_id##21
+title t,movie_info mi,cast_info ci#t.id=mi.movie_id,t.id=ci.movie_id##22
+title t,movie_info_idx mi_idx,cast_info ci#t.id=mi_idx.movie_id,t.id=ci.movie_id##23
+title t,cast_info ci,movie_info mi#t.id=ci.movie_id,t.id=mi.movie_id##24
+title t,cast_info ci,movie_info_idx mi_idx#t.id=ci.movie_id,t.id=mi_idx.movie_id##25
+title t,movie_info mi,movie_keyword mk,movie_info_idx mi_idx#t.id=mi.movie_id,t.id=mk.movie_id,t.id=mi_idx.movie_id##26
+title t,movie_info mi,movie_keyword mk,movie_companies mc#t.id=mi.movie_id,t.id=mk.movie_id,t.id=mc.movie_id##27
+title t,movie_info mi,movie_info_idx mi_idx,movie_keyword mk#t.id=mi.movie_id,t.id=mi_idx.movie_id,t.id=mk.movie_id##28
+title t,movie_info mi,movie_info_idx mi_idx,movie_companies mc#t.id=mi.movie_id,t.id=mi_idx.movie_id,t.id=mc.movie_id##29
+title t,movie_info mi,movie_companies mc,movie_keyword mk#t.id=mi.movie_id,t.id=mc.movie_id,t.id=mk.movie_id##30
+title t,movie_info mi,movie_companies mc,movie_info_idx mi_idx#t.id=mi.movie_id,t.id=mc.movie_id,t.id=mi_idx.movie_id##31
+title t,movie_keyword mk,movie_info mi,movie_info_idx mi_idx#t.id=mk.movie_id,t.id=mi.movie_id,t.id=mi_idx.movie_id##32
+title t,movie_keyword mk,movie_info mi,movie_companies mc#t.id=mk.movie_id,t.id=mi.movie_id,t.id=mc.movie_id##33
+title t,movie_keyword mk,movie_info_idx mi_idx,movie_info mi#t.id=mk.movie_id,t.id=mi_idx.movie_id,t.id=mi.movie_id##34
+title t,movie_keyword mk,movie_info_idx mi_idx,movie_companies mc#t.id=mk.movie_id,t.id=mi_idx.movie_id,t.id=mc.movie_id##35
+title t,movie_keyword mk,movie_companies mc,movie_info mi#t.id=mk.movie_id,t.id=mc.movie_id,t.id=mi.movie_id##36
+title t,movie_keyword mk,movie_companies mc,movie_info_idx mi_idx#t.id=mk.movie_id,t.id=mc.movie_id,t.id=mi_idx.movie_id##37
+title t,movie_info_idx mi_idx,movie_info mi,movie_keyword mk#t.id=mi_idx.movie_id,t.id=mi.movie_id,t.id=mk.movie_id##38
+title t,movie_info_idx mi_idx,movie_info mi,movie_companies mc#t.id=mi_idx.movie_id,t.id=mi.movie_id,t.id=mc.movie_id##39
+title t,movie_info_idx mi_idx,movie_keyword mk,movie_info mi#t.id=mi_idx.movie_id,t.id=mk.movie_id,t.id=mi.movie_id##40
+title t,movie_info_idx mi_idx,movie_keyword mk,movie_companies mc#t.id=mi_idx.movie_id,t.id=mk.movie_id,t.id=mc.movie_id##41
+title t,movie_info_idx mi_idx,movie_companies mc,movie_info mi#t.id=mi_idx.movie_id,t.id=mc.movie_id,t.id=mi.movie_id##42
+title t,movie_info_idx mi_idx,movie_companies mc,movie_keyword mk#t.id=mi_idx.movie_id,t.id=mc.movie_id,t.id=mk.movie_id##43
+title t,movie_companies mc,movie_info mi,movie_keyword mk#t.id=mc.movie_id,t.id=mi.movie_id,t.id=mk.movie_id##44
+title t,movie_companies mc,movie_info mi,movie_info_idx mi_idx#t.id=mc.movie_id,t.id=mi.movie_id,t.id=mi_idx.movie_id##45
+title t,movie_companies mc,movie_keyword mk,movie_info mi#t.id=mc.movie_id,t.id=mk.movie_id,t.id=mi.movie_id##46
+title t,movie_companies mc,movie_keyword mk,movie_info_idx mi_idx#t.id=mc.movie_id,t.id=mk.movie_id,t.id=mi_idx.movie_id##47
+title t,movie_companies mc,movie_info_idx mi_idx,movie_info mi#t.id=mc.movie_id,t.id=mi_idx.movie_id,t.id=mi.movie_id##48
+title t,movie_companies mc,movie_info_idx mi_idx,movie_keyword mk#t.id=mc.movie_id,t.id=mi_idx.movie_id,t.id=mk.movie_id##49
+title t,movie_info mi,movie_companies mc,cast_info ci#t.id=mi.movie_id,t.id=mc.movie_id,t.id=ci.movie_id##50
+title t,movie_info mi,cast_info ci,movie_companies mc#t.id=mi.movie_id,t.id=ci.movie_id,t.id=mc.movie_id##51
+title t,movie_info mi,cast_info ci,movie_keyword mk#t.id=mi.movie_id,t.id=ci.movie_id,t.id=mk.movie_id##52
+title t,movie_info mi,movie_keyword mk,cast_info ci#t.id=mi.movie_id,t.id=mk.movie_id,t.id=ci.movie_id##53
+title t,movie_companies mc,movie_info mi,cast_info ci#t.id=mc.movie_id,t.id=mi.movie_id,t.id=ci.movie_id##54
+title t,movie_companies mc,cast_info ci,movie_info mi#t.id=mc.movie_id,t.id=ci.movie_id,t.id=mi.movie_id##55
+title t,movie_companies mc,cast_info ci,movie_keyword mk#t.id=mc.movie_id,t.id=ci.movie_id,t.id=mk.movie_id##56
+title t,movie_companies mc,movie_keyword mk,cast_info ci#t.id=mc.movie_id,t.id=mk.movie_id,t.id=ci.movie_id##57
+title t,cast_info ci,movie_info mi,movie_companies mc#t.id=ci.movie_id,t.id=mi.movie_id,t.id=mc.movie_id##58
+title t,cast_info ci,movie_info mi,movie_keyword mk#t.id=ci.movie_id,t.id=mi.movie_id,t.id=mk.movie_id##59
+title t,cast_info ci,movie_companies mc,movie_info mi#t.id=ci.movie_id,t.id=mc.movie_id,t.id=mi.movie_id##60
+title t,cast_info ci,movie_companies mc,movie_keyword mk#t.id=ci.movie_id,t.id=mc.movie_id,t.id=mk.movie_id##61
+title t,cast_info ci,movie_keyword mk,movie_info mi#t.id=ci.movie_id,t.id=mk.movie_id,t.id=mi.movie_id##62
+title t,cast_info ci,movie_keyword mk,movie_companies mc#t.id=ci.movie_id,t.id=mk.movie_id,t.id=mc.movie_id##63
+title t,movie_keyword mk,movie_info mi,cast_info ci#t.id=mk.movie_id,t.id=mi.movie_id,t.id=ci.movie_id##64
+title t,movie_keyword mk,movie_companies mc,cast_info ci#t.id=mk.movie_id,t.id=mc.movie_id,t.id=ci.movie_id##65
+title t,movie_keyword mk,cast_info ci,movie_info mi#t.id=mk.movie_id,t.id=ci.movie_id,t.id=mi.movie_id##66
+title t,movie_keyword mk,cast_info ci,movie_companies mc#t.id=mk.movie_id,t.id=ci.movie_id,t.id=mc.movie_id##67
+title t,movie_info mi,movie_info_idx mi_idx,cast_info ci#t.id=mi.movie_id,t.id=mi_idx.movie_id,t.id=ci.movie_id##68
+title t,movie_info mi,cast_info ci,movie_info_idx mi_idx#t.id=mi.movie_id,t.id=ci.movie_id,t.id=mi_idx.movie_id##69
+title t,movie_info_idx mi_idx,movie_info mi,cast_info ci#t.id=mi_idx.movie_id,t.id=mi.movie_id,t.id=ci.movie_id##70
+title t,movie_info_idx mi_idx,cast_info ci,movie_info mi#t.id=mi_idx.movie_id,t.id=ci.movie_id,t.id=mi.movie_id##71
+title t,movie_info_idx mi_idx,cast_info ci,movie_keyword mk#t.id=mi_idx.movie_id,t.id=ci.movie_id,t.id=mk.movie_id##72
+title t,movie_info_idx mi_idx,movie_keyword mk,cast_info ci#t.id=mi_idx.movie_id,t.id=mk.movie_id,t.id=ci.movie_id##73
+title t,cast_info ci,movie_info mi,movie_info_idx mi_idx#t.id=ci.movie_id,t.id=mi.movie_id,t.id=mi_idx.movie_id##74
+title t,cast_info ci,movie_info_idx mi_idx,movie_info mi#t.id=ci.movie_id,t.id=mi_idx.movie_id,t.id=mi.movie_id##75
+title t,cast_info ci,movie_info_idx mi_idx,movie_keyword mk#t.id=ci.movie_id,t.id=mi_idx.movie_id,t.id=mk.movie_id##76
+title t,cast_info ci,movie_keyword mk,movie_info_idx mi_idx#t.id=ci.movie_id,t.id=mk.movie_id,t.id=mi_idx.movie_id##77
+title t,movie_keyword mk,movie_info_idx mi_idx,cast_info ci#t.id=mk.movie_id,t.id=mi_idx.movie_id,t.id=ci.movie_id##78
+title t,movie_keyword mk,cast_info ci,movie_info_idx mi_idx#t.id=mk.movie_id,t.id=ci.movie_id,t.id=mi_idx.movie_id##79
