@@ -25,10 +25,8 @@ def dynamic_programming():
             sorted_key = sorted(key_as_list)
             if ','.join(sorted_key) not in cardinalities_of_interest:
                 # (cost, bestorder)
-                cardinalities_of_interest[key] = (random.randint(0, basic_cardinalities[relation]*basic_cardinalities[r]), key)
+                cardinalities_of_interest[','.join(sorted_key)] = (random.randint(0, basic_cardinalities[relation]*basic_cardinalities[r]), ','.join(sorted_key))
     
-    #print("STARTING CARDINALITIES", cardinalities_of_interest)
-
     seen_subsets = set()
 
     for i in range(3, len(cardinalities)+2):
@@ -49,7 +47,8 @@ def dynamic_programming():
                 if ','.join(sorted(key_as_list)) in seen_subsets:
                     continue
                 
-                print("RELATION CONSIDERED", key)
+                print("RELATIONS CONSIDERED", key)
+                print("SORTED KEY", ','.join(sorted(key_as_list)))
                 
                 # Want to find least-expensive i-1 subset
                 subset_found = False
@@ -57,7 +56,7 @@ def dynamic_programming():
                 for permutation in permutations(key_as_list, i-1):
                     subset = ','.join(list(permutation))
                     if subset in cardinalities_of_interest:
-                        print("POSSIBLE MIN SUBSET", cardinalities_of_interest[subset])
+                        print("POSSIBLE MIN SUBSET FOR SUBSET", subset, "IS", cardinalities_of_interest[subset])
                         left_out = [table for table in key_as_list if table not in list(permutation)][0]
                         left_outs[subset] = left_out
                         print("LEAVING OUT", left_out)
@@ -68,14 +67,16 @@ def dynamic_programming():
                             if cardinalities_of_interest[subset] < min_subset:
                                 min_subset = cardinalities_of_interest[subset]
                 
-                cardinalities_of_interest[key] = (random.randint(0, min_subset[0]*basic_cardinalities[left_outs[min_subset[1]]]), min_subset[1] + ',' + left_outs[min_subset[1]])
-                seen_subsets.add(key)
+                cardinalities_of_interest[','.join(sorted(key_as_list))] = (random.randint(0, min_subset[0]*basic_cardinalities[left_outs[min_subset[1]]]), min_subset[1] + ',' + left_outs[min_subset[1]])
+                seen_subsets.add(','.join(sorted(key_as_list)))
                 print("MIN SUBSET", min_subset)
                 print("BEST ORDER:", min_subset[1] + ',' + left_outs[min_subset[1]])
                 print("CARDINALITIES OF INTEREST", cardinalities_of_interest)
                 
                 
                 print("-------------------------------")
+
+                print("SEEN SUBSETS", seen_subsets)
 
         # When you've examined all orders of length i, remove those of i-1
         for order in list(cardinalities_of_interest.keys()):
