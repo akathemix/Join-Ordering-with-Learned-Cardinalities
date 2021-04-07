@@ -47,9 +47,8 @@ def dynamic_programming():
                 if ','.join(sorted(key_as_list)) in seen_subsets:
                     continue
                 
-                print("RELATIONS CONSIDERED", key)
-                print("SORTED KEY", ','.join(sorted(key_as_list)))
-                
+                print("RELATIONS CONSIDERED", key, "WITH SORTED KEY", ','.join(sorted(key_as_list)))
+                print()
                 # Want to find least-expensive i-1 subset
                 subset_found = False
                 left_outs = {}
@@ -67,6 +66,7 @@ def dynamic_programming():
                             if cardinalities_of_interest[subset] < min_subset:
                                 min_subset = cardinalities_of_interest[subset]
                 
+                print()
                 cardinalities_of_interest[','.join(sorted(key_as_list))] = (random.randint(0, min_subset[0]*basic_cardinalities[left_outs[min_subset[1]]]), min_subset[1] + ',' + left_outs[min_subset[1]])
                 seen_subsets.add(','.join(sorted(key_as_list)))
                 print("MIN SUBSET", min_subset)
@@ -77,7 +77,7 @@ def dynamic_programming():
                 print("-------------------------------")
 
                 print("SEEN SUBSETS", seen_subsets)
-
+                print()
         # When you've examined all orders of length i, remove those of i-1
         for order in list(cardinalities_of_interest.keys()):
             if len(order.split(',')) == i-1:
@@ -86,11 +86,6 @@ def dynamic_programming():
                 
     print("FINAL ORDERING", cardinalities_of_interest)
     print("BEST ORDER IS", cardinalities_of_interest[final_join][1], "WITH COST", cardinalities_of_interest[final_join][0])
-    
-    '''
-    FINAL ORDERING {'R,S,T,U': (14815451299, 'R,S,U,T')}
-    BEST ORDER IS R,S,U,T WITH COST 14815451299
-    '''
 
 if __name__ == "__main__":
     dynamic_programming()
