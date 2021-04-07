@@ -4,6 +4,8 @@ import random
 
 def greedy2():
 
+    random.seed(1)
+    
     original_cardinalities = greedy1_cardinalities()
     join_orderings = {}
     queries = get_queries_names('scale')
