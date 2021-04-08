@@ -195,4 +195,4 @@ def greedy1():
     return join_orderings
             
 if __name__ == "__main__":
-    (greedy1())
+    print(greedy1())

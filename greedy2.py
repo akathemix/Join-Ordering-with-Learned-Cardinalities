@@ -73,4 +73,4 @@ def greedy2():
 
                 
 if __name__ == "__main__":
-    (greedy2())
+    print(greedy2())
