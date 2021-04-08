@@ -8,12 +8,13 @@ def greedy3():
 
     original_cardinalities = greedy1_cardinalities()
     join_orderings = {}
-    #queries = get_queries_names('scale')
+    queries = get_queries_names('scale')
 
     # Queries with 1 join or less will be the same as greedy1
     basic_joins = greedy1()
 
     for query in original_cardinalities:
+        
         '''
         print("QUERY", query)
         print(queries[query])
@@ -66,7 +67,7 @@ def greedy3():
         print(join_orderings[query])   
         print("----------------------------------")
         '''
-        
+
     return join_orderings
 
 

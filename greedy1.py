@@ -176,11 +176,13 @@ def greedy1():
     for query in cardinalities:
         relations_of_interest = cardinalities[query].copy()
         join_order = []
-                
-        #print("QUERY", query)
-        #print(query_names[query])
+        
+        '''
+        print("QUERY", query)
+        print(query_names[query])
         #print()
         #print("RELATIONS OF INTEREST ARE:", relations_of_interest)
+        '''
         
         while len(relations_of_interest) != 0:
             least_costly_relation = min(relations_of_interest, key=relations_of_interest.get)
@@ -189,8 +191,12 @@ def greedy1():
             # print("REMOVED", least_costly_relation, " --- CURRENT JOIN ORDER:", join_order)
 
         join_orderings[query] = join_order
-        #print(join_orderings[query])
-        #print("-------------------------------------------")
+
+        '''
+        print()
+        print(join_orderings[query])
+        print("-------------------------------------------")
+        '''
 
     return join_orderings
             

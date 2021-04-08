@@ -14,11 +14,12 @@ def greedy2():
     basic_joins = greedy1()
 
     for query in original_cardinalities:
+        
         '''
         print("QUERY", query)
         print(queries[query])
         print()
-        '''
+        '''        
 
         # At max 1 join (less than 3 relations)
         if len(original_cardinalities[query]) < 3:
@@ -73,4 +74,4 @@ def greedy2():
 
                 
 if __name__ == "__main__":
-    print(greedy2())
+    (greedy2())

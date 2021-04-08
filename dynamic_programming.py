@@ -17,15 +17,18 @@ def dynamic_programming():
     for query in basic_cardinalities:
         final_join = ','.join(sorted(list(basic_cardinalities[query].keys())))
 
+        '''
         print("QUERY", query)
         print(queries[query])
+        print()
+        
         print("RELATIONS OF INTEREST ARE", basic_cardinalities[query])
         print()
+        '''
         
         # At max 1 join (less than 3 relations)
         if len(basic_cardinalities[query]) < 3:
             join_orderings[query] = basic_joins[query]
-            
 
         # More than 1 join 
         else:
@@ -45,7 +48,11 @@ def dynamic_programming():
                         cardinalities_of_interest[','.join(sorted_key)] = (random.randint(0, basic_cardinalities[query][relation]*basic_cardinalities[query][r]), ','.join(sorted_key))
             
             seen_subsets = set()
+            
+            '''
             print("BUILD ON:", cardinalities_of_interest)
+            '''
+
             for i in range(3, len(cardinalities)+2):
 
                 for relation in cardinalities_of_interest.copy():
@@ -56,17 +63,18 @@ def dynamic_programming():
                     for used_relation in relation.split(','):
                         relations_left.pop(used_relation)
                     
-                    
                     for unused_relation in relations_left:
                         key = relation + ',' + unused_relation
                         key_as_list = key.split(',')
                         if ','.join(sorted(key_as_list)) in seen_subsets:
                             continue
-
+                        
+                        '''
                         print("RELATION TO BUILD ON:", relation)
                         print("RELATIONS TO ADD", list(relations_left.keys()))
                         print("RELATIONS CONSIDERED", key, "WITH SORTED KEY", ','.join(sorted(key_as_list)))
                         print()
+                        '''
 
                         # Want to find least-expensive i-1 subset
                         subset_found = False
@@ -74,10 +82,14 @@ def dynamic_programming():
                         for permutation in permutations(key_as_list, i-1):
                             subset = ','.join(list(permutation))
                             if subset in cardinalities_of_interest:
-                                print("POSSIBLE MIN SUBSET FOR SUBSET", subset, "IS", cardinalities_of_interest[subset])
                                 left_out = [table for table in key_as_list if table not in list(permutation)][0]
                                 left_outs[subset] = left_out
+                                
+                                '''
+                                print("POSSIBLE MIN SUBSET FOR SUBSET", subset, "IS", cardinalities_of_interest[subset])
                                 print("LEAVING OUT", left_out)
+                                '''
+
                                 if not subset_found:
                                     min_subset = cardinalities_of_interest[subset]
                                     subset_found = True
@@ -85,20 +97,16 @@ def dynamic_programming():
                                     if cardinalities_of_interest[subset] < min_subset:
                                         min_subset = cardinalities_of_interest[subset]
                         
-                        print("MIN SUBSET", min_subset)
-                        
                         sorted_min_subset = ','.join(sorted(min_subset[1].split(',')))
-                        
                         cardinalities_of_interest[','.join(sorted(key_as_list))] = (random.randint(0, min_subset[0]*basic_cardinalities[query][left_outs[sorted_min_subset]]), min_subset[1] + ',' + left_outs[sorted_min_subset])
                         seen_subsets.add(','.join(sorted(key_as_list)))
                         
-                        print("BEST ORDER:", min_subset[1] + ',' + left_outs[sorted_min_subset])
+                        '''
+                        print("BEST ORDER:", min_subset[1] + ',' + left_outs[sorted_min_subset], "WITH COST", min_subset[0])
                         print("CARDINALITIES OF INTEREST", cardinalities_of_interest)
-                        
-                        
-                        
-                        #print("SEEN SUBSETS", seen_subsets)
+                        print("SEEN SUBSETS", seen_subsets)
                         print()
+                        '''
                         
                 # When you've examined all orders of length i, remove those of i-1
                 for order in list(cardinalities_of_interest.keys()):
@@ -106,14 +114,17 @@ def dynamic_programming():
                         cardinalities_of_interest.pop(order)
                         
                         
-            print("FINAL ORDERING", cardinalities_of_interest)
-            print("BEST ORDER IS", cardinalities_of_interest[final_join][1], "WITH COST", cardinalities_of_interest[final_join][0])
-            join_orderings[query] = cardinalities_of_interest[final_join][1]
+            join_orderings[query] = cardinalities_of_interest[final_join][1].split(',')
         
-        print("JOIN ORDERING:", join_orderings[query])
+        '''
+        # Print best order for query
+        print(join_orderings[query])
+        print("COST", cardinalities_of_interest[final_join][0])
         print("-------------------------------")
+        '''
 
+    return join_orderings
 
 if __name__ == "__main__":
-    dynamic_programming()
+    print(dynamic_programming())
 
