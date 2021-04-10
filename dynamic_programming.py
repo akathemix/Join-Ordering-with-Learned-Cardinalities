@@ -3,16 +3,16 @@ from prepared_data import get_queries_names
 from itertools import permutations
 import random
 
-def dynamic_programming():
+def dynamic_programming(seed):
     
-    random.seed(1)
+    #random.seed(1)
 
-    basic_cardinalities = greedy1_cardinalities()
+    basic_cardinalities = greedy1_cardinalities(seed)
     join_orderings = {}
     queries = get_queries_names('scale')
     
     # Queries with 1 join or less will be the same as greedy1
-    basic_joins = greedy1()
+    basic_joins = greedy1(seed)
 
     for query in basic_cardinalities:
         final_join = ','.join(sorted(list(basic_cardinalities[query].keys())))

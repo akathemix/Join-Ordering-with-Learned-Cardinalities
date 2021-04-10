@@ -2,16 +2,16 @@ from greedy1 import greedy1_cardinalities, greedy1
 from prepared_data import get_queries_names
 import random
 
-def greedy3():
+def greedy3(seed):
 
-    random.seed(1)
+    #random.seed(1)
 
-    original_cardinalities = greedy1_cardinalities()
+    original_cardinalities = greedy1_cardinalities(seed)
     join_orderings = {}
     queries = get_queries_names('scale')
 
     # Queries with 1 join or less will be the same as greedy1
-    basic_joins = greedy1()
+    basic_joins = greedy1(seed)
 
     for query in original_cardinalities:
         

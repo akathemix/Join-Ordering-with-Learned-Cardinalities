@@ -50,15 +50,16 @@ column_unique_values = {
 
 # Based on http://resources.mpi-inf.mpg.de/departments/d5/teaching/ss09/queryoptimization/lecture5.pdf
 # Slide 13
-def greedy1_cardinalities():
+def greedy1_cardinalities(seed, baseline=True):
 
     greedy1_cardinalities = {}
-    random.seed(1)
+    random.seed(seed)
 
     # If there is a predicate for a table, the predicate is applied on the table first
     seen_tables = {}
     predicate_idx = 0
 
+    step = 1
     for predicate in read_write_to_csv('scale')[2]:
         predicate_idx += 1
         
@@ -75,6 +76,10 @@ def greedy1_cardinalities():
                 else:
                     table_cardinality = random.randint(0, column_cardinalities[predicate[i]] - column_unique_values[predicate[i]] + 1)
                 
+                # Modify cardinality
+                if not baseline and step % 2 == 0:
+                    table_cardinality *= 0.25
+
                 # For each predicate, we keep the cardinality of filtering that table
                 table = predicate[i].split('.')[0]
 
@@ -84,6 +89,8 @@ def greedy1_cardinalities():
                     seen_tables[predicate_idx][table] = [table_cardinality]
                 elif table in seen_tables[predicate_idx]:
                     seen_tables[predicate_idx][table].append(table_cardinality)
+
+        step += 1
     
     join_idx = 0
     for joins in read_write_to_csv('scale')[1]:
@@ -167,9 +174,9 @@ def get_joins_per_query():
     return relations_per_query
 '''
 
-def greedy1():
+def greedy1(seed, baseline=True):
 
-    cardinalities = greedy1_cardinalities()
+    cardinalities = greedy1_cardinalities(seed)
     query_names = get_queries_names('scale')
     join_orderings = {}
 
