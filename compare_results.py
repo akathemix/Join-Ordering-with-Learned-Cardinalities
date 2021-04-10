@@ -62,87 +62,64 @@ def greedy3_compare(seed):
 
 if __name__ == "__main__":
 
-    '''
-    greedy1_vs_greedy2 = []
-    greedy1_vs_greedy3 = []
-    greedy1_vs_dp = []
-    greedy2_vs_greedy3 = []
-    greedy2_vs_dp = []
-    greedy3_vs_dp = []
-    '''
+    baseline_results = {}
+    no_baseline_results = {}
+    dp_results = {}
 
-    greedy1_dicts = []
-    greedy1_dicts_no_baseline = []
-
-    '''
-    greedy2_dicts = []
-    greedy3_dicts = []
-    dp_dicts = []
-    '''
-
+    num_of_modifications = [4/3, 3/2, 2,3,4,5,10]
+    modifications = [0.25,0.5,0.75,1.25,1.5,2,10]
+    
     for i in range(1, 11):
-        greedy1_dicts.append(greedy1(i))
-        greedy1_dicts_no_baseline.append(greedy1(i,baseline=False))
-        '''
-        greedy2_dicts.append(greedy2(i))
-        greedy3_dicts.append(greedy3(i))
-        dp_dicts.append(dynamic_programming(i))
-        '''
-
+        baseline_results[i] = greedy2(i)
+        dp_results[i] = dynamic_programming(i)
+        for nm in num_of_modifications:
+            for mod in modifications:
+                key = "% OF MODS: " + str(round(100/nm)) + " --- MOD: x" + str(mod)
+                #print(str(nm), "--", str(mod))
+                if i not in no_baseline_results:
+                    no_baseline_results[i] = {}
+                elif key not in baseline_results[i]:
+                    no_baseline_results[i][key] = greedy2(i, baseline=False, num_modifications=nm, modification=mod)
+     
+    greedy2_self_average = {}
+    dp_average = {}
     
-    results = []
-    for i in range(len(greedy1_dicts)):
-        no_baseline_match = 0
-        for query in greedy1_dicts[i]:
-            if greedy1_dicts[i][query] == greedy1_dicts_no_baseline[i][query]:
-                no_baseline_match += 1
+    # Through seeds
+    for i in range(1, len(baseline_results)+1):
+        for key in no_baseline_results[i]:
+            no_baseline_match = 0
+            dp_match = 0
+            for j in range(1, len(no_baseline_results[i][key]) + 1):
+                if baseline_results[i][j] == no_baseline_results[i][key][j]:
+                    no_baseline_match += 1
 
-        results.append(no_baseline_match/len(greedy1_dicts[i]))
+                if dp_results[i][j] == no_baseline_results[i][key][j]:
+                    dp_match += 1
 
-    print("GREEDY 1 WITH 50% MODIFIED BY 25%")
-    print(results)
+                
+            greedy2_self_average[key] = no_baseline_match / len(baseline_results[i])
+            dp_average[key] = dp_match / len(baseline_results[i])
+
+            print(key)
+            ###################### Change below
+            print("AVERAGE MATCH --", greedy2_self_average[key])
+            print()
+
+    print("----------------------------")
+    print("----------------------------")
+    print("----------------------------")
     print()
-    print("AVERAGE MATCH:", sum(results)/len(results))
 
-    
+    average_difference = 0
+
+    for key in greedy2_self_average:
+        average_difference += greedy2_self_average[key]
+
+    print("AVERAGE MATCH BETWEEN GREEDY2 AND GREEDY2 MODIFIED PLANS:", average_difference / len(greedy2_self_average))
 
     '''
-    # Seeds 1-10
-    for i in range(1, 11):
-        greedy1_vs_greedy2.append(greedy1_compare(i)[0])
-        greedy1_vs_greedy3.append(greedy1_compare(i)[1])
-        greedy1_vs_dp.append(greedy1_compare(i)[2])
-        greedy2_vs_greedy3.append(greedy2_compare(i)[0])
-        greedy2_vs_dp.append(greedy2_compare(i)[1])
-        greedy3_vs_dp.append(greedy3_compare(i))
+    for key in dp_average:
+        average_difference += dp_average[key]
 
-    print("AVERAGE MATCH - GREEDY1 VS GREEDY2:", sum(greedy1_vs_greedy2) / len(greedy1_vs_greedy2))
-    print("AVERAGE MATCH - GREEDY1 VS GREEDY3:", sum(greedy1_vs_greedy3) / len(greedy1_vs_greedy3))
-    print("AVERAGE MATCH - GREEDY1 VS DP:", sum(greedy1_vs_dp) / len(greedy1_vs_dp))
-    print("AVERAGE MATCH - GREEDY2 VS GREEDY3:", sum(greedy2_vs_greedy3) / len(greedy2_vs_greedy3))
-    print("AVERAGE MATCH - GREEDY2 VS DP:", sum(greedy2_vs_dp) / len(greedy2_vs_dp))
-    print("AVERAGE MATCH - GREEDY3 VS DP:", sum(greedy3_vs_dp) / len(greedy3_vs_dp))
-    print()
-
-    print("MAX/MIN - GREEDY1 VS GREEDY2:", max(greedy1_vs_greedy2), min(greedy1_vs_greedy2))
-    print("MAX/MIN - GREEDY1 VS GREEDY3:", max(greedy1_vs_greedy3), min(greedy1_vs_greedy3))
-    print("MAX/MIN - GREEDY1 VS DP:", max(greedy1_vs_dp), min(greedy1_vs_dp))
-    print("MAX/MIN - GREEDY2 VS GREEDY3:", max(greedy2_vs_greedy3), min(greedy2_vs_greedy3))
-    print("MAX/MIN - GREEDY2 VS DP:", max(greedy2_vs_dp), min(greedy2_vs_dp))
-    print("MAX/MIN - GREEDY3 VS DP:", max(greedy2_vs_dp), min(greedy3_vs_dp))
-    print()
-    
-    print("MATCH PERCENTAGE - GREEDY1 VS GREEDY2:", greedy1_vs_greedy2)
-    print("MATCH PERCENTAGE - GREEDY1 VS GREEDY3:", greedy1_vs_greedy3)
-    print("MATCH PERCENTAGE - GREEDY1 VS DP:", greedy1_vs_dp)
-    print("MATCH PERCENTAGE - GREEDY2 VS GREEDY3:", greedy2_vs_greedy3)
-    print("MATCH PERCENTAGE - GREEDY2 VS DP:", greedy2_vs_dp)
-    print("MATCH PERCENTAGE - GREEDY3 VS DP:", greedy3_vs_dp)
+    print("AVERAGE MATCH BETWEEN DP AND GREEDY2 MODIFIED PLANS:", average_difference / len(dp_average))
     '''
-    
-
-
-    
-    
-    
-

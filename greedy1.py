@@ -50,7 +50,7 @@ column_unique_values = {
 
 # Based on http://resources.mpi-inf.mpg.de/departments/d5/teaching/ss09/queryoptimization/lecture5.pdf
 # Slide 13
-def greedy1_cardinalities(seed, baseline=True):
+def greedy1_cardinalities(seed, baseline=True, num_modifications=1, modification=1):
 
     greedy1_cardinalities = {}
     random.seed(seed)
@@ -77,8 +77,8 @@ def greedy1_cardinalities(seed, baseline=True):
                     table_cardinality = random.randint(0, column_cardinalities[predicate[i]] - column_unique_values[predicate[i]] + 1)
                 
                 # Modify cardinality
-                if not baseline and step % 2 == 0:
-                    table_cardinality *= 0.25
+                if not baseline and step % num_modifications == 0:
+                    table_cardinality *= modification
 
                 # For each predicate, we keep the cardinality of filtering that table
                 table = predicate[i].split('.')[0]
@@ -209,3 +209,4 @@ def greedy1(seed, baseline=True):
             
 if __name__ == "__main__":
     print(greedy1())
+    
