@@ -50,7 +50,7 @@ column_unique_values = {
 
 # Based on http://resources.mpi-inf.mpg.de/departments/d5/teaching/ss09/queryoptimization/lecture5.pdf
 # Slide 13
-def greedy1_cardinalities(seed, baseline=True, num_modifications=1, modification=1):
+def get_cardinalities(seed, baseline=True, num_modifications=1, modification=1):
 
     greedy1_cardinalities = {}
     random.seed(seed)
@@ -176,7 +176,7 @@ def get_joins_per_query():
 
 def greedy1(seed, baseline=True):
 
-    cardinalities = greedy1_cardinalities(seed)
+    cardinalities = get_cardinalities(seed)
     query_names = get_queries_names('scale')
     join_orderings = {}
 

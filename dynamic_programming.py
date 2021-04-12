@@ -1,4 +1,4 @@
-from greedy1 import greedy1_cardinalities, greedy1
+from greedy1 import get_cardinalities, greedy1
 from prepared_data import get_queries_names
 from itertools import permutations
 import random
@@ -7,7 +7,7 @@ def dynamic_programming(seed):
     
     #random.seed(1)
 
-    basic_cardinalities = greedy1_cardinalities(seed)
+    basic_cardinalities = get_cardinalities(seed)
     join_orderings = {}
     queries = get_queries_names('scale')
     

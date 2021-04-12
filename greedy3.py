@@ -1,4 +1,4 @@
-from greedy1 import greedy1_cardinalities, greedy1
+from greedy1 import get_cardinalities, greedy1
 from prepared_data import get_queries_names
 import random
 
@@ -6,7 +6,7 @@ def greedy3(seed):
 
     #random.seed(1)
 
-    original_cardinalities = greedy1_cardinalities(seed)
+    original_cardinalities = get_cardinalities(seed)
     join_orderings = {}
     queries = get_queries_names('scale')
 
