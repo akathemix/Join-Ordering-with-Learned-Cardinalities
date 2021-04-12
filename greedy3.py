@@ -2,7 +2,7 @@ from greedy1 import get_cardinalities, greedy1
 from prepared_data import get_queries_names
 import random
 
-def greedy3(seed):
+def greedy3(seed, baseline=True, num_modifications=1, modification=1):
 
     #random.seed(1)
 
@@ -45,7 +45,12 @@ def greedy3(seed):
                     # Assign a cost to possible next options
                     for table in relations_left:                    
                         new_key = best_order + ',' + table
-                        current_options[new_key] = random.randint(0, current_cost * relations_left[table])
+                        if not baseline and query % num_modifications == 0:
+                            current_options[new_key] = random.randint(0, round(modification * current_cost * original_cardinalities[query][table]))
+                        elif not baseline and num_modifications < 2 and float(query) % num_modifications != 0.0:
+                            current_options[new_key] = random.randint(0, round(modification * current_cost * original_cardinalities[query][table]))
+                        else:
+                            current_options[new_key] = random.randint(0, current_cost * relations_left[table])
                     
                     #print("CURRENT OPTIONS ARE:", current_options)
 

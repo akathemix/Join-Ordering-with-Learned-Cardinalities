@@ -70,7 +70,7 @@ if __name__ == "__main__":
     modifications = [0.25,0.5,0.75,1.25,1.5,2,10]
     
     for i in range(1, 11):
-        baseline_results[i] = greedy2(i)
+        baseline_results[i] = greedy3(i)
         dp_results[i] = dynamic_programming(i)
         for nm in num_of_modifications:
             for mod in modifications:
@@ -79,7 +79,7 @@ if __name__ == "__main__":
                 if i not in no_baseline_results:
                     no_baseline_results[i] = {}
                 elif key not in baseline_results[i]:
-                    no_baseline_results[i][key] = greedy2(i, baseline=False, num_modifications=nm, modification=mod)
+                    no_baseline_results[i][key] = greedy3(i, baseline=False, num_modifications=nm, modification=mod)
      
     greedy2_self_average = {}
     dp_average = {}
@@ -112,6 +112,7 @@ if __name__ == "__main__":
 
     average_difference = 0
 
+    '''
     for key in greedy2_self_average:
         average_difference += greedy2_self_average[key]
 
@@ -122,4 +123,3 @@ if __name__ == "__main__":
         average_difference += dp_average[key]
 
     print("AVERAGE MATCH BETWEEN DP AND GREEDY2 MODIFIED PLANS:", average_difference / len(dp_average))
-    '''
