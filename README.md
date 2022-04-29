@@ -6,3 +6,5 @@ compared the join ordering returned by each algorithm using that set with the �
 join ordering computed by a dynamic programming algorithm using the same set. In
 this way, I was able to measure how “far away” the target algorithm behaves from the
 optimal dynamic programming method.
+
+[Project Report](https://github.com/akathemix/Join-Ordering-with-Learned-Cardinalities/blob/master/Join%20Ordering%20with%20Learned%20Cardinalities.pdf)
